@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "@symfony/webpack-encore": "^5.0.1"
+  },
+  "scripts": {
+    "dev-server": "encore dev-server",
+    "dev": "encore dev",
+    "watch": "encore dev --watch",
+    "build": "encore production --progress"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.9",
+    "webpack-notifier": "1.15.0"
+  }
+}
