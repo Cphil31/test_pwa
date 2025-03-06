@@ -1,9 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Home{% endblock %}
-{% block javascripts %}
-            <script src="{{ asset('js/main.js') }}"></script>
-{% endblock %}
+
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -12,5 +10,36 @@
 
 <div class="example-wrapper">
     <h1>Test pwa</h1>
+    <button id="install-button" style="">Installer l'application</button>
 </div>
+<script>
+window.onload = function () {
+
+ let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (event) => {
+            // Empêcher l'affichage automatique de la bannière
+            event.preventDefault();
+            // Stocker l'événement pour l'utiliser plus tard
+            deferredPrompt = event;
+            // Afficher un bouton pour déclencher l'installation
+            document.getElementById('install-button').style.display = 'block';
+        });
+
+        document.getElementById('install-button').addEventListener('click', () => {
+            // Afficher l'invite d'installation
+            deferredPrompt.prompt();
+            // Attendre la réponse de l'utilisateur
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('L\'utilisateur a accepté l\'installation');
+                } else {
+                    console.log('L\'utilisateur a refusé l\'installation');
+                }
+                deferredPrompt = null;
+            });
+        });
+}
+</script>
 {% endblock %}
+
